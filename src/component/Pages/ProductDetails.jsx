@@ -45,6 +45,9 @@ const ProductDetails = () => {
             navigate('/carts');
         }
     };
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
     return (
         <div className="flex justify-between gap-10">
             <div className="w-1/2">
@@ -72,7 +75,13 @@ const ProductDetails = () => {
 
                 <div className="flex justify-between my-2">
                     <p className="text-2xl"><LiaShippingFastSolid className="text-sky-700 inline text-2xl" /> {shipping}</p>
-                    <button className="bg-cyan-700 text-white py-2 px-4 rounded mr-10" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                    {
+                        isLoggedIn ? (
+                            <button className="btn btn-primary" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                        ) : (
+                            <button className="btn btn-primary" onClick={() => navigate('/login')}>Login to add to cart</button>
+                        )
+                    }
                 </div>
 
             </div>

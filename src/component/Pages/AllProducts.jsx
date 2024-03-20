@@ -9,6 +9,7 @@ import 'aos/dist/aos.css';
 const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
     const navigate = useNavigate();
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
     useEffect(() => {
         axios.get("/products.json")
@@ -81,7 +82,15 @@ const AllProducts = () => {
                                
                                 <div className="card-actions">
                                     <div className="flex justify-between gap-24 items-center ">
-                                    <button className="bg-cyan-700 text-white py-2 px-4 rounded" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                                        
+                                    {
+                                        isLoggedIn ?
+                                        <button className="bg-cyan-700 text-white py-2 px-4 rounded" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                                        :
+                                        <button className="bg-cyan-700 text-white py-2 px-4 rounded" onClick={() => navigate('/login')}>Login to Add to Cart</button>
+                                        
+                                    }
+
                                     <Link to={`/allProducts/${product.id}`}><button className="bg-violet-500 text-white py-2 px-3 rounded ">View Details</button></Link>
                                     </div>
                                    
